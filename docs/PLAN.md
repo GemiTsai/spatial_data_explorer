@@ -6,7 +6,7 @@
 
 建立 Spatial Omics 互動式資料探索工具，讓使用者在瀏覽器內查看空間資料與 UMAP、圈選細胞、比較基因表達，並將分析結果連結回組織位置。
 
-本文件為規劃，尚未開始功能實作。MVP 指 minimum viable product（最小可行產品）。
+本文件為接受的 MVP 規劃。2026-10-29 已開始實作；開發決策與驗證紀錄見 `../dev_log.md`。MVP 指 minimum viable product（最小可行產品）。
 
 ## MVP 核心操作流程
 
@@ -141,6 +141,15 @@ Spatial 與 UMAP 可調整大小或單獨放大。任一視窗選取細胞，另
 2. 典型／最大細胞數、基因數、影像大小、樣本數與硬體資源。
 3. 以實際資料確認「Nanaotream」是否指 NanoString／Bruker CosMx；蛋白質正規化後續再定。
 4. 最優先的實際 A／B 比較案例與預期輸出。
+
+## 2026-10-29 實作進度
+
+- 已建立 React／TypeScript 前端、FastAPI 本機服務、Canvas 細胞多邊形與連動 UMAP、metadata／基因著色、圈選與 A／B 群組。
+- 已實作 Scanpy Wilcoxon DE、獨立可取消程序、結果基因連動、表達分布、CSV／JSON 匯出、工作保存與 dataset fingerprint 檢查。
+- 已實作唯讀 H5AD＋平面頂點表 Parquet 匯入、欄位映射、自動尋找 annotation 候選欄位及灰色未註釋細胞。
+- 已提供需使用者確認座標的軸向對齊影像概覽、透明度調整及收藏基因並排檢視。完整影像金字塔與自動 registration 未完成。
+- 合成資料的核心操作流程、匯入測試與直接 Scanpy 比對已通過。這不代表指定 Xenium 或 MERSCOPE／CosMx 真實資料驗證完成。
+- 目前 importer 為記憶體模式，預設拒絕超過 250,000 細胞，沒有隱藏抽樣；效能門檻尚待真實資料測量。Parquet 先支援每頂點一列，nested／WKB／多部件輪廓需後續 adapter。
 
 ## 介面參考
 
